@@ -1,0 +1,10 @@
+<h1>ブログ一覧</h1>
+<%= link_to "新規作成", new_article_path %>
+
+<ul>
+  <% @articles.each do |article| %>
+    <li>
+      <%= link_to article.title, article %>
+    </li>
+  <% end %>
+</ul>
