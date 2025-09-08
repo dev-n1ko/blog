@@ -1,10 +1,16 @@
-<h1>ブログ一覧</h1>
-<%= link_to "新規作成", new_article_path %>
+<h1>記事一覧</h1>
 
+<!-- 記事作成フォームを上部に埋め込む -->
+<h2>新しい記事を作成</h2>
+<%= render 'form', article: @article %>
+
+<hr>
+
+<h2>記事一覧</h2>
 <ul>
   <% @articles.each do |article| %>
     <li>
-      <%= link_to article.title, article %>
+      <%= link_to article.title, article_path(article) %>
     </li>
   <% end %>
 </ul>

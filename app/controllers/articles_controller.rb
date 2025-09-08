@@ -1,6 +1,7 @@
 class ArticlesController < ApplicationController
   def index
     @articles = Article.all
+    @article = Article.new   # ← フォーム用
   end
 
   def show
@@ -14,9 +15,10 @@ class ArticlesController < ApplicationController
   def create
     @article = Article.new(article_params)
     if @article.save
-      redirect_to @article, notice: "記事を作成しました"
+      redirect_to articles_path, notice: "記事を作成しました"
     else
-      render :new
+      @articles = Article.all
+      render :index
     end
   end
 
@@ -34,9 +36,11 @@ class ArticlesController < ApplicationController
   end
 
   def destroy
+    p "888"
     @article = Article.find(params[:id])
     @article.destroy
     redirect_to articles_path, notice: "記事を削除しました"
+
   end
 
   private

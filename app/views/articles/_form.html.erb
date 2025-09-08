@@ -1,0 +1,26 @@
+<% if article.errors.any? %>
+  <div style="color: red;">
+    <h2><%= pluralize(article.errors.count, "件のエラー") %> が発生しました:</h2>
+    <ul>
+      <% article.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_with(model: article, local: true, data: { turbo: false }) do |f| %>
+  <div>
+    <%= f.label :title, "タイトル" %><br>
+    <%= f.text_field :title %>
+  </div>
+
+  <div>
+    <%= f.label :body, "本文" %><br>
+    <%= f.text_area :body %>
+  </div>
+
+  <div>
+    <%= f.submit "記事を作成" %>
+  </div>
+<% end %>
