@@ -2,6 +2,15 @@ class ArticlesController < ApplicationController
   def index
     @articles = Article.all
     @article = Article.new   # ← フォーム用
+    @q = params[:q].to_s.strip
+      if @q.present?
+        like = "%#{ActiveRecord::Base.sanitize_sql_like(@q)}%"
+        @articles = Article
+                      .where("title LIKE :q OR body LIKE :q", q: like)
+                      .order(created_at: :desc)
+      else
+        @articles = Article.order(created_at: :desc)
+      end
   end
 
   def show
@@ -48,5 +57,10 @@ class ArticlesController < ApplicationController
   def article_params
     params.require(:article).permit(:title, :body)
   end
+
+
+
+
+
 end
 
