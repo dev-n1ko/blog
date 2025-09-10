@@ -45,11 +45,9 @@ class ArticlesController < ApplicationController
   end
 
   def destroy
-    p "888"
     @article = Article.find(params[:id])
     @article.destroy
     redirect_to articles_path, notice: "記事を削除しました"
-
   end
 
   private

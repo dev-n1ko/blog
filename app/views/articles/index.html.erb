@@ -11,22 +11,32 @@
 <% end %>
 
 
-<h1>記事一覧</h1>
-
-<!-- 記事作成フォームを上部に埋め込む -->
-<h2>新しい記事を作成</h2>
-<%= render 'form', article: @article %>
-
 <hr>
 
-<h2>記事一覧</h2>
+<div class="articles-layout">
+  <div class="articles-list">
+    <h2>記事一覧</h2>
 
-<ul>
-  <% @articles.each do |article| %>
-    <li>
-      <%= link_to article.title, article_path(article) %>
-      <small> - <%= l(article.created_at, format: :short) %></small>
-      <p><%= truncate(article.body, length: 120) %></p>
-    </li>
-  <% end %>
-</ul>
+      <ul>
+        <% @articles.each do |article| %>
+          <li>
+            <%= link_to article.title, article_path(article) %>
+            <small> - <%= l(article.created_at, format: :short) %></small>
+            <p><%= truncate(article.body, length: 120) %></p>
+            
+            <% if article.latest_comment %>
+              <p>最初のコメント: <%= article.latest_comment.content %></p>
+            <% else %>
+              <p>コメントはまだありません</p>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+  </div>
+
+  <div class="articles-form">
+    <!-- 記事作成フォームを上部に埋め込む -->
+    <h2>新しい記事を作成</h2>
+    <%= render 'form', article: @article %>
+  </div>
+</div>
